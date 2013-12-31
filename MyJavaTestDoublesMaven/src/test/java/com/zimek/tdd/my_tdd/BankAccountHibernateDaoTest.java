@@ -32,8 +32,8 @@ public class BankAccountHibernateDaoTest {
 	public static void baseSetUp() {
 		Configuration cfg = new Configuration();
 		cfg.configure();
-		serviceRegistry = new StandardServiceRegistryBuilder()
-			.applySettings(cfg.getProperties()).build();
+		serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
+				cfg.getProperties()).build();
 		factory = cfg.buildSessionFactory(serviceRegistry);
 		accDao = new BankAccountHibernateDao(factory);
 	}
@@ -60,7 +60,10 @@ public class BankAccountHibernateDaoTest {
 		assertNotNull(bankAccount2);
 		assertEquals(new BigDecimal(10.0), bankAccount1.getBalance());
 		assertEquals(new BigDecimal(20.0), bankAccount2.getBalance());
+	}
 
+	@Test
+	public void testNonExistingFindAccountById() {
 		// get not existing one
 		BankAccount bankAccount3 = accDao.findAccountById(3L);
 		assertNull(bankAccount3);
